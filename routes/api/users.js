@@ -4,6 +4,8 @@ router = express.Router();
 
 const gravatar = require('gravatar');
 const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
+const config = require('config');
 
 // express-validator is a set of express.js middlewares that wraps validator.js validator and sanitizer functions.
 // It will validate the users input
@@ -62,8 +64,24 @@ router.post(
 
       await user.save();
 
-      // Return the json web token --> to allow them to log in right away
-      res.send('User registered');
+      // Return the json web token (authorization) --> to allow them to log in right away
+      const payload = {
+        user: {
+          id: user.id,
+        },
+      };
+
+      // Sign the token
+      jwt.sign(
+        payload,
+        config.get('jwtSecret'),
+        // Before you deply, change it to 3600
+        { expiresIn: 3600000 },
+        (err, token) => {
+          if (err) throw err;
+          res.json({ token });
+        }
+      );
     } catch (err) {
       // Server error
       console.error(err);

@@ -5,6 +5,10 @@ const connectDB = require('./config/db');
 // Connect database
 connectDB();
 
+// Init Middleware
+// Allows us to get data form req.body
+app.use(express.json({extended:false}));
+
 app.get('/', (req,res)=> res.send("API is running..."));
 
 // Define routes

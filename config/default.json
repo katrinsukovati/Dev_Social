@@ -1,4 +1,7 @@
 {
     "mongoURI": "mongodb+srv://kat123:kat123@devconnector.7bdry.mongodb.net/devconnector?retryWrites=true&w=majority",
-    "jwtSecret" : "mySecretToken"
+    "jwtSecret" : "mySecretToken",
+    "githubClientID": "6b7ce03185038132884e",
+    "githubSecret": "dbb8f6efebd96ec656b85af4ba7b4fd94e2878e8"
+
 }

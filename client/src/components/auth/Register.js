@@ -1,8 +1,10 @@
 import React, { Fragment, useState } from 'react';
-import {Link} from 'react-router-dom';
+import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
+import { setAlert } from '../../actions/alert';
+import PropTypes from 'prop-types';
 
-
-export const Register = () => {
+const Register = ({ setAlert }) => {
   // formData --> an object with all the field values
   // setFormData function to update our state
   // Defualt values are shown below
@@ -23,7 +25,7 @@ export const Register = () => {
     e.preventDefault();
     // Make sure that passwords match
     if (password !== password2) {
-      console.log('Passwords do not match');
+      setAlert('Passwords do not match', 'danger');
     } else {
       console.log('Success');
     }
@@ -88,3 +90,8 @@ export const Register = () => {
     </Fragment>
   );
 };
+
+Register.protoTypes = {
+  setAlert: PropTypes.func.isRequired,
+};
+export default connect(null, { setAlert })(Register);

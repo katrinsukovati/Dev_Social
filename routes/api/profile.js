@@ -10,6 +10,8 @@ const request = require('request');
 const config = require('config');
 const { response } = require('express');
 
+const someNum = 3;
+
 // @route  GET api/profile/me
 // @desc   Get current users profile
 // @access Private --> becuase were getting the profile by the usre id thats inside the token (bring in the auth middleware)

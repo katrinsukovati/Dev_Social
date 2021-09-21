@@ -1,10 +1,13 @@
 import React, { Fragment, useState } from 'react';
+// Connect this component to redux
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { setAlert } from '../../actions/alert';
+import { register } from '../../actions/auth';
+// PropTypes are a way to validate the values that are passed in through our properties.
 import PropTypes from 'prop-types';
 
-const Register = ({ setAlert }) => {
+const Register = ({ setAlert, register }) => {
   // formData --> an object with all the field values
   // setFormData function to update our state
   // Defualt values are shown below
@@ -25,9 +28,10 @@ const Register = ({ setAlert }) => {
     e.preventDefault();
     // Make sure that passwords match
     if (password !== password2) {
+      // Set an alert if the passwords do not match
       setAlert('Passwords do not match', 'danger');
     } else {
-      console.log('Success');
+      register({ name, email, password });
     }
   };
 
@@ -45,7 +49,6 @@ const Register = ({ setAlert }) => {
             name='name'
             value={name}
             onChange={(e) => onChange(e)}
-            required
           />
         </div>
         <div className='form-group'>
@@ -55,7 +58,6 @@ const Register = ({ setAlert }) => {
             name='email'
             value={email}
             onChange={(e) => onChange(e)}
-            required
           />
           <small className='form-text'>
             This site uses Gravatar so if you want a profile image, use a
@@ -69,7 +71,6 @@ const Register = ({ setAlert }) => {
             name='password'
             value={password}
             onChange={(e) => onChange(e)}
-            minLength='6'
           />
         </div>
         <div className='form-group'>
@@ -79,7 +80,6 @@ const Register = ({ setAlert }) => {
             name='password2'
             value={password2}
             onChange={(e) => onChange(e)}
-            minLength='6'
           />
         </div>
         <input type='submit' className='btn btn-primary' value='Register' />
@@ -91,7 +91,12 @@ const Register = ({ setAlert }) => {
   );
 };
 
-Register.protoTypes = {
+Register.propTypes = {
   setAlert: PropTypes.func.isRequired,
+  register: PropTypes.func.isRequired,
 };
-export default connect(null, { setAlert })(Register);
+
+// Anytime you use connect, you have to export it and include the component right after the parentheses
+// Connect takes in two arguments --> 1. Any state that you want to map 2. An object with any actions that you want to use
+// allows us to access props.setAlert
+export default connect(null, { setAlert, register })(Register);

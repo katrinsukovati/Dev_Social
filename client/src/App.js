@@ -6,6 +6,7 @@ import Register from './components/auth/Register';
 import { Login } from './components/auth/Login';
 import Alert from './components/layout/Alert';
 // Redux
+// Connecting react and redux by surrounding our entire app with provider that way all the components we create can access our app level state
 import { Provider } from 'react-redux';
 import store from './store';
 

@@ -4,7 +4,7 @@
 import axios from 'axios';
 
 // When we have a token, we just send it with every request instead of picking and choosing which request to send it with
-const setAuthToken = (token) => {
+const setAuthToken = token => {
   if (token) {
     axios.defaults.headers.common['x-auth-token'] = token;
   } else {

@@ -1,13 +1,13 @@
 import React, { Fragment, useState } from 'react';
 // Connect this component to redux
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import { setAlert } from '../../actions/alert';
 import { register } from '../../actions/auth';
 // PropTypes are a way to validate the values that are passed in through our properties.
 import PropTypes from 'prop-types';
 
-const Register = ({ setAlert, register }) => {
+const Register = ({ setAlert, register, isAuthenticated }) => {
   // formData --> an object with all the field values
   // setFormData function to update our state
   // Defualt values are shown below
@@ -34,6 +34,11 @@ const Register = ({ setAlert, register }) => {
       register({ name, email, password });
     }
   };
+
+  // Redirect if logged in
+  if (isAuthenticated) {
+    return <Redirect to='/dashboard' />;
+  }
 
   return (
     <Fragment>
@@ -94,9 +99,14 @@ const Register = ({ setAlert, register }) => {
 Register.propTypes = {
   setAlert: PropTypes.func.isRequired,
   register: PropTypes.func.isRequired,
+  isAuthenticated: PropTypes.bool,
 };
+
+const mapStateToProps = (state) => ({
+  isAuthenticated: state.auth.isAuthenticated,
+});
 
 // Anytime you use connect, you have to export it and include the component right after the parentheses
 // Connect takes in two arguments --> 1. Any state that you want to map 2. An object with any actions that you want to use
 // allows us to access props.setAlert
-export default connect(null, { setAlert, register })(Register);
+export default connect(mapStateToProps, { setAlert, register })(Register);

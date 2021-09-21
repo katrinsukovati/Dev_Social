@@ -1,5 +1,10 @@
 // Reducer for authentication
-import { REGISTER_SUCCESS, REGISTER_FAIL } from '../actions/types';
+import {
+  REGISTER_SUCCESS,
+  REGISTER_FAIL,
+  USER_LOADED,
+  AUTH_ERROR,
+} from '../actions/types';
 
 const initialState = {
   // We will fetch the token in local storage
@@ -18,6 +23,13 @@ export default function (state = initialState, action) {
   //Payload is an object
   const { type, payload } = action;
   switch (type) {
+    case USER_LOADED:
+      return {
+        ...state,
+        isAuthenticated: true,
+        loading: false,
+        user: payload,
+      };
     case REGISTER_SUCCESS:
       // We got the token back so we want to set the token and log in the user
       localStorage.setItem('token', payload.token);
@@ -29,6 +41,7 @@ export default function (state = initialState, action) {
         loading: false,
       };
     case REGISTER_FAIL:
+    case AUTH_ERROR:
       // If its a failed login, remove the token completely
       localStorage.removeItem('token');
       return {
@@ -37,7 +50,6 @@ export default function (state = initialState, action) {
         isAuthenticated: false,
         loading: false,
       };
-
     default:
       return state;
   }

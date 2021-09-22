@@ -7,7 +7,7 @@ import { connect } from 'react-redux';
 // ... rest is any other custom props
 // ? then
 // : else
-// if we are not authenticated and its not loading, redirect to login page else
+// If we are not authenticated and its not loading, redirect to login page else
 const PrivateRoute = ({
   component: Component,
   auth: { isAuthenticated, loading },

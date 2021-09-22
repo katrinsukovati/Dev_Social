@@ -2,6 +2,7 @@
 import { combineReducers } from 'redux';
 import alert from './alert';
 import auth from './auth';
+import profile from './profile';
 
 // As your app grows more complex, you'll want to split your reducing function into separate functions...
 // each managing independent parts of the state.
@@ -10,4 +11,5 @@ import auth from './auth';
 export default combineReducers({
   alert,
   auth,
+  profile,
 });

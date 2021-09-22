@@ -15,6 +15,9 @@ const Alert = ({ alerts }) =>
     </div>
   ));
 
+
+// React revolves around the concept of components. 
+// A whole webpage should be broken down into components and each components will interact with each other through props.
 Alert.propTypes = {
   alerts: PropTypes.array.isRequired,
 };
@@ -22,4 +25,7 @@ Alert.propTypes = {
 const mapStateToProps = (state) => ({
   alerts: state.alert,
 });
+
+// By default connect()(Alert) will make all state props available for the connected Component
+// Now when you map the state to your component it gets a bit nicer
 export default connect(mapStateToProps)(Alert);

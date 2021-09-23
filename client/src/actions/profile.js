@@ -20,3 +20,44 @@ export const getCurrentProfile = () => async (dispatch) => {
     });
   }
 };
+
+// Create or update a profile
+// history is an object that has a method called push that redirects us to a client side route
+export const createProfile =
+  (formData, history, edit = false) =>
+  async (dispatch) => {
+    try {
+      const config = {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      };
+
+      const res = await axios.post('/api/profile', formData, config);
+
+      dispatch({
+        type: GET_PROFILE,
+        payload: res.data,
+      });
+
+      dispatch(
+        setAlert(edit ? 'Profile Updated' : 'Profile Created', 'success')
+      );
+
+      if (!edit) {
+        history.push('/dashboard');
+      }
+    } catch (err) {
+      // If we forget the name, email, etc..., we get an array of errors from our back-end
+      const errors = err.response.data.errors;
+
+      if (errors) {
+        errors.forEach((error) => dispatch(setAlert(error.msg, 'danger')));
+      }
+
+      dispatch({
+        type: PROFILE_ERROR,
+        payload: { msg: err.response.statusText, status: err.response.status },
+      });
+    }
+  };

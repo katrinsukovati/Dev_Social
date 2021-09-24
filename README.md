@@ -1,0 +1,1 @@
+This is a MERN stack application. It is a small social network that includes authentication and profiles. This application has an extensive backend API with validation leveraging stateless JWT authentication.

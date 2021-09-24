@@ -49,7 +49,6 @@ export default function (state = initialState, action) {
     case LOGIN_FAIL:
     case LOGOUT:
       // If its a failed login, remove the token completely
-      console.log('in here');
       localStorage.removeItem('token');
       return {
         ...state,

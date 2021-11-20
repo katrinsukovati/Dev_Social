@@ -9,6 +9,7 @@ const ProfileTop = ({
     website,
     social,
     user: { name, avatar },
+    githubusername
   },
 }) => {
   return (
@@ -53,6 +54,12 @@ const ProfileTop = ({
         {social && social.instagram && (
           <a href={social.instagram} target='_blank' rel='noopener noreferrer'>
             <i class='fab fa-instagram fa-2x'></i>
+          </a>
+        )}
+
+        {githubusername && (
+          <a href={`https://github.com/${githubusername}`} target='_blank' rel='noopener noreferrer'>
+            <i class='fab fa-github fa-2x'></i>
           </a>
         )}
       </div>
